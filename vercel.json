@@ -2,7 +2,7 @@
   "functions": {
     "api/index.php": {
       "runtime": "vercel-php@0.5.3",
-      "excludeFiles": "{api/**}",
+      "excludeFiles": "{test/**}",
       "memory": 256,
       "maxDuration": 5
     }

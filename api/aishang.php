@@ -1,6 +1,5 @@
-
 <?php
-$id = isset($_GET['id'])?$_GET['id']:'cctv1';
+$id = isset($_GET['id']) ? $_GET['id'] : 'cctv1';
 $n = array(
   'cctv1' => '0001', //CCTV-1
   'cctv1hd' => '0127', //CCTV-1高清
@@ -126,5 +125,8 @@ $n = array(
   'jjkt' => '0087', //嘉佳卡通
 );
 
-header('location:'.'http://live.aishang.ctlcdn.com/0000011024'.$n[$id].'_1/playlist.m3u8?CONTENTID=0000011024'.$n[$id].'_1&AUTHINFO=FABqh274XDn8fkurD5614t%2B1RvYajgx%2Ba3PxUJe1SMO4OjrtFitM6ZQbSJEFffaD35hOAhZdTXOrK0W8QvBRom%2BXaXZYzB%2FQfYjeYzGgKhP%2Fdo%2BXpr4quVxlkA%2BubKvbU1XwJFRgrbX%2BnTs60JauQUrav8kLj%2FPH8LxkDFpzvkq75UfeY%2FVNDZygRZLw4j%2BXtwhj%2FIuXf1hJAU0X%2BheT7g%3D%3D&USERTOKEN=eHKuwve%2F35NVIR5qsO5XsuB0O2BhR0KR');
+$url = 'http://live.aishang.ctlcdn.com/0000011024'.$n[$id].'_1/playlist.m3u8?CONTENTID=0000011024'.$n[$id].'_1&AUTHINFO=FABqh274XDn8fkurD5614t%2B1RvYajgx%2Ba3PxUJe1SMO4OjrtFitM6ZQbSJEFffaD35hOAhZdTXOrK0W8QvBRom%2BXaXZYzB%2FQfYjeYzGgKhP%2Fdo%2BXpr4quVxlkA%2BubKvbU1XwJFRgrbX%2BnTs60JauQUrav8kLj%2FPH8LxkDFpzvkq75UfeY%2FVNDZygRZLw4j%2BXtwhj%2FIuXf1hJAU0X%2BheT7g%3D%3D&USERTOKEN=eHKuwve%2F35NVIR5qsO5XsuB0O2BhR0KR';
+
+header('Location: ' . $url);
+exit;
 ?>

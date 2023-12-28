@@ -1,5 +1,4 @@
 <?php
-error_reporting(0);
 header('Location:'.$playurl);
 $id = isset($_GET['id'])?$_GET['id']:'nbtv1';//nbtv1,2,3,4,5,6
 $post = json_encode([

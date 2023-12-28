@@ -1,9 +1,9 @@
 {
   "functions": {
-    "api/index.php": {
-      "runtime": "vercel-php@0.4.0"
+    "api/nbtv.php": {
+      "runtime": "vercel-php@0.5.3"
     }
   },
-  "routes": [{ "src": "/(.*)", "dest": "/api/index.php" }]
+  "routes": [{ "src": "/(.*)", "dest": "/api/nbtv.php" }]
 }
 

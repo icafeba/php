@@ -1,8 +1,8 @@
 {
   "functions": {
     "api/index.php": {
-      "runtime": "vercel-php@0.3.1",
-      "excludeFiles": "{test/**}",
+      "runtime": "vercel-php@0.5.3",
+      "excludeFiles": "{api/**}",
       "memory": 256,
       "maxDuration": 5
     }

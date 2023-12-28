@@ -3,7 +3,5 @@
     "api/nbtv.php": {
       "runtime": "vercel-php@0.5.3"
     }
-  },
-  "routes": [{ "src": "/(.*)", "dest": "/api/nbtv.php" }]
+  }
 }
-

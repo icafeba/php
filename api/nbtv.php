@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 $id = isset($_GET['id'])?$_GET['id']:'nbtv1';//nbtv1,2,3,4,5,6
 $post = json_encode([
     url => 'http://liveplay.nbtv.cn/live/'.$id.'_md.m3u8',

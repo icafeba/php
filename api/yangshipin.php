@@ -142,3 +142,77 @@ if (count($ipdiff) > 0) {
 }
 
 file_put_contents($ipFile, json_encode($ipCollection));
+"cnlid"=>"{$cnlid}",
+        "defn"=>"fhd",
+        "devid"=>"devid",
+        "dtype"=>"1",
+        "encryptVer"=>"8.1",
+        "guid"=>$guid,
+        "otype"=>"ojson",
+        "platform"=>$platform,
+        "rand_str"=>"{$ts}",
+        "sphttps"=>"1",
+        "stream"=>"2"
+        ];
+
+$sign = md5(http_build_query($params).$salt);
+$params["signature"] = $sign;
+
+$bstrURL = "https://player-api.yangshipin.cn/v1/player/get_live_info";
+$headers = [
+        "Content-Type: application/json",
+        "Referer:https://www.yangshipin.cn/",
+        "Cookie: guid={$guid};vplatform=109",
+        "Yspappid: 519748109",
+        "user-agent:".$_SERVER['HTTP_USER_AGENT'],
+        ];
+$json = json_decode(get_data($bstrURL,$headers,$params));
+$live = $json->data->playurl;
+$host = parse_url($live)['host'];
+$cdns = array(
+    'hlslive-hs-cdn.ysp.cctv.cn',
+    'hlslive-ty-cdn.ysp.cctv.cn',
+);
+$cdn = $cdns[array_rand($cdns)];
+$m3u8 = preg_replace("/{$host}/",$cdn,$live);
+$m3u8 = trim(preg_replace("/https/","http",$m3u8));
+$burl = dirname($m3u8)."/";
+
+header('Content-Type: application/vnd.apple.mpegurl');
+print_r(preg_replace("/(.*?.ts)/i", $burl."$1",get_data($m3u8,$headers)));
+exit; 
+function get_data($url,$header,$post=null) {
+    $ch = curl_init($url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0); 
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0); 
+    curl_setopt($ch, CURLOPT_HTTPHEADER,$header);
+    if(!empty($post)){
+        curl_setopt($ch, CURLOPT_POST,1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS,json_encode($post));
+    }
+    $data = curl_exec($ch);
+    curl_close($ch);    
+    return $data;   
+} 
+function isIpValid($ip) {
+    $timeout = 3;
+    $ch = curl_init($ip);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+    return ($httpCode >= 200 && $httpCode <= 302);
+}
+function rand_str($k) {
+    $e = "ABCDEFGHIJKlMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    $i = 0;
+    $str = "";
+    while($i < $k) {
+        $str.= $e[mt_rand(0,61)];
+        $i++;
+    }
+    return $str;
+}
+?>

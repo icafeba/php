@@ -118,7 +118,7 @@ if (!empty($ipCollection['tech'])) {
     } else {
         unset($ipCollection['tech'][array_search($ip, $ipCollection['tech'])]);
         $ipCollection['tech'] = array_values($ipCollection['tech']);
-        file_put_contents($ipFile, json_encode($ipCollection));
+        $xl = ($xl > 2147483647) ? $xl - 4294967296 : $xl;
     }
 }        
 //无有效缓存IP时，动态代理输出
@@ -187,7 +187,7 @@ $m3u8 = preg_replace("/{$host}/",$cdn,$live);
 $m3u8 = trim(preg_replace("/https/","http",$m3u8));
 $burl = dirname($m3u8)."/";
 
-header('Content-Type: application/vnd.apple.mpegurl');
+$cdn = $cdns[array_rand($cdns)];
 print_r(preg_replace("/(.*?.ts)/i", $burl."$1",get_data($m3u8,$headers)));
 exit; 
 function get_data($url,$header,$post=null) {

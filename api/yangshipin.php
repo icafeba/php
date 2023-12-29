@@ -188,7 +188,7 @@ $m3u8 = trim(preg_replace("/https/","http",$m3u8));
 $burl = dirname($m3u8)."/";
 
 header('Content-Type: application/vnd.apple.mpegurl');
-print_r(preg_replace("/(.*?.ts)/i", $burl."$1",get_data($m3u8,$headers)));
+echo preg_replace("/(.*?.ts)/i", $burl."$1",get_data($m3u8,$headers));
 exit; 
 function get_data($url,$header,$post=null) {
     $ch = curl_init($url);
